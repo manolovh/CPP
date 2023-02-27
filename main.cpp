@@ -1,5 +1,6 @@
 #include <iostream>
 #include <climits>
+#include <vector>
 
 using namespace std;
 void numbers();
@@ -8,13 +9,69 @@ void test_types();
 void size_of();
 void allowed_size();
 void estimate_cost();
+void arr();
+void vect();
 
 
 int main() {
 
-    estimate_cost();
+    vect();
 
     return 0;
+}
+
+void vect(){
+    // vector <int> vector1 (5, 10); // size 5, default value 0
+    // vector1[2] = 5;
+    // vector1.push_back(15);
+    // cout << vector1[2] << vector1[5] << endl;
+
+    vector <int> vector1;
+    vector <int> vector2;
+
+    vector1.push_back(10);
+    vector1.push_back(20);
+
+    cout << "Vector 1:" << endl;
+    cout << "Element 1: " << vector1.at(0) << endl;
+    cout << "Element 2: " << vector1.at(1) << endl;
+    cout << "Size: " << vector1.size() << endl;
+
+    vector2.push_back(100);
+    vector2.push_back(200);
+
+    cout << "\nVector 2:" << endl;
+    cout << "Element 1: " << vector2.at(0) << endl;
+    cout << "Element 2: " << vector2.at(1) << endl;
+    cout << "Size: " << vector2.size() << endl;
+
+    vector <vector<int>> vector_2d;
+    vector_2d.push_back(vector1);
+    vector_2d.push_back(vector2);
+
+    cout << "\nVector 2D:" << endl;
+    cout << "Vector 1 elements: " << vector_2d.at(0).at(0) << ", " << vector_2d.at(0).at(1) << endl;
+    cout << "Vector 2 elements: " << vector_2d.at(1).at(0) << ", " << vector_2d.at(1).at(1) << endl;
+
+    vector1.at(0) = 1000;
+    cout << "\nVector 2D:" << endl;
+    cout << "Vector 1 elements: " << vector_2d.at(0).at(0) << ", " << vector_2d.at(0).at(1) << endl;
+    cout << "Vector 2 elements: " << vector_2d.at(1).at(0) << ", " << vector_2d.at(1).at(1) << endl;
+
+    cout << "\nVector 1 elements: " << vector1.at(0) << ", " << vector1.at(1) << endl;
+
+
+
+    
+}
+
+void arr() {
+    
+    int arr[] {1, 2, 3, 4, 5, 6};
+
+    for (int i = 0; i < 10; i++) {
+        cout << arr[i] << endl;
+    }
 }
 
 void estimate_cost() {
