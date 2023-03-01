@@ -15,7 +15,14 @@ void vect();
 
 int main() {
 
-    vect();
+    // vect();
+    int num1 = 10;
+    int num2 = 20;
+
+    num2 = num1;
+    num1 = 30;
+    cout << num1 << endl;
+    cout << num2 << endl;
 
     return 0;
 }
