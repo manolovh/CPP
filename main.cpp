@@ -1,6 +1,7 @@
 #include <iostream>
 #include <climits>
 #include <vector>
+#include <iomanip>
 
 using namespace std;
 void numbers();
@@ -36,6 +37,9 @@ void currency(){
     cout << "Dimes: " << dimes << endl;
     cout << "Nickels: " << nickels << endl;
     cout << "Pennies: " << pennies << endl;
+
+    cout << fixed << setprecision(2); // prints ints with .xx precision
+    cout << 1.22121 << endl;
 }
 
 void vect(){
