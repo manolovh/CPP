@@ -11,27 +11,34 @@ void allowed_size();
 void estimate_cost();
 void arr();
 void vect();
+void currency();
 
 
 int main() {
 
-    // vect();
-    int num1 = 10;
-    int num2 = 20;
-
-    num2 = num1;
-    num1 = 30;
-    cout << num1 << endl;
-    cout << num2 << endl;
+    currency();
 
     return 0;
 }
 
+void currency(){
+    cout << "Enter the amount in cents: ";
+    int amount {};
+    cin >> amount;
+
+    int dollars {amount / 100};
+    int quarters {(amount % 100) / 25};
+    int dimes {amount % 100 % 25 / 10};
+    int nickels {amount % 100 % 25 % 10 / 5};
+    int pennies {amount % 100 % 25 % 10 % 5};
+    cout << "Dollars: " << dollars << endl;
+    cout << "Quarters: " << quarters << endl;
+    cout << "Dimes: " << dimes << endl;
+    cout << "Nickels: " << nickels << endl;
+    cout << "Pennies: " << pennies << endl;
+}
+
 void vect(){
-    // vector <int> vector1 (5, 10); // size 5, default value 0
-    // vector1[2] = 5;
-    // vector1.push_back(15);
-    // cout << vector1[2] << vector1[5] << endl;
 
     vector <int> vector1;
     vector <int> vector2;
@@ -66,10 +73,6 @@ void vect(){
     cout << "Vector 2 elements: " << vector_2d.at(1).at(0) << ", " << vector_2d.at(1).at(1) << endl;
 
     cout << "\nVector 1 elements: " << vector1.at(0) << ", " << vector1.at(1) << endl;
-
-
-
-    
 }
 
 void arr() {
