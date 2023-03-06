@@ -59,6 +59,7 @@ void grade(){
     }
 }
 
+
 void currency(){
     cout << "Enter the amount in cents: ";
     int amount {};
