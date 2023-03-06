@@ -13,13 +13,50 @@ void estimate_cost();
 void arr();
 void vect();
 void currency();
+void grade();
 
 
 int main() {
 
-    currency();
+    grade();
 
     return 0;
+}
+
+void grade(){
+    char letter_grade {};
+
+    cout << "Enter a letter grade: ";
+    cin >> letter_grade;
+
+    switch (letter_grade) {
+        case 'a':
+        case 'A': cout << "You need 90 points or above." << endl; break;
+        case 'b':
+        case 'B': cout << "You need 80 to 89 points." << endl; break;
+        case 'c':
+        case 'C': cout << "You need 70 to 79 point.s" << endl; break;
+        case 'd':
+        case 'D': cout << "You need 60 to 69 points." << endl; break;
+        case 'f':
+        case 'G': cout << "You need less than 60 points, but that's not acceptable!" << endl; break;
+
+        default: cout << "Sorry, that's not a valid grade." << endl; 
+
+    }
+
+    enum Direction {
+        left, right, up, down
+    };
+
+    Direction heading {left};
+
+    switch (heading){
+        case left: cout << "Go left..." << endl; break;
+        case right: cout << "Go right..." << endl; break;
+        case up: cout << "Go up..." << endl; break;
+        case down: cout << "Go down..." << endl; break;
+    }
 }
 
 void currency(){
