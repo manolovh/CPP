@@ -14,13 +14,34 @@ void arr();
 void vect();
 void currency();
 void grade();
-
+void cond_statement();
+void forloop();
 
 int main() {
 
-    grade();
+    forloop();
 
     return 0;
+}
+
+void forloop(){
+    vector <int> nums {10, 20, 30, 40, 50};
+
+    for (unsigned int i {0}; i < nums.size(); ++i)
+        // cout << i << ((i % 3 == 0) ? "\n" : " ");
+        cout << nums[i] << endl;
+}
+
+void cond_statement(){
+    int a {52};
+    int b {7};
+    // retruns "Yes" if a > b is true, returns "No" if a > b is false
+    cout << ((a > b) ? "Yes" : "No") << endl;
+
+    int num {};
+    cout << "Enter an integer: ";
+    cin >> num;
+    cout << num << ((num % 2 == 0) ? " is even." : " is odd.") << endl;
 }
 
 void grade(){
