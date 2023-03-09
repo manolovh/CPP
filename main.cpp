@@ -19,17 +19,28 @@ void forloop();
 
 int main() {
 
-    forloop();
-
+    // forloop();
+    vector <int> vec {10, 20, 30, 40, -99};
+    int count {0};
+    bool is_present {false};
+    
+    while (!is_present && count < vec.size()){
+        if (vec[count] == -99)
+            is_present = true;
+         else
+            count++;
+    }
+    cout << count << endl;
     return 0;
 }
 
 void forloop(){
     vector <int> nums {10, 20, 30, 40, 50};
+    // int nums [] {10, 20, 30, 40, 50};
 
-    for (unsigned int i {0}; i < nums.size(); ++i)
+    for (int i: nums)
         // cout << i << ((i % 3 == 0) ? "\n" : " ");
-        cout << nums[i] << endl;
+        cout << i << endl;
 }
 
 void cond_statement(){
