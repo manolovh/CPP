@@ -1,8 +1,8 @@
 #include <iostream>
 #include <climits>
 #include <vector>
-#include <cctype>
 #include <cstring>
+#include <algorithm> 
 
 using namespace std;
 
@@ -10,12 +10,36 @@ void c_string();
 void c_str();
 void cpp_str();
 void encrypted();
+void pyramid();
 
 int main() {
 
-    encrypted();
+    pyramid();
     return 0;
 }
+
+void pyramid() {
+    string user_input {};
+    cout << "Enter a word you want to display as a pyramid: ";
+    cin >> user_input;
+
+    for (size_t i {0}; i < user_input.size(); i++) {
+        size_t counter = user_input.size() - (i + 1);
+        for (int j {0}; j < counter; j++)
+                cout << " ";
+        
+        if (i == 0)
+            cout << user_input[i] << endl;
+        else {
+            cout << user_input.substr(0, i + 1);
+            string sub {user_input.substr(0, i)};
+            reverse(sub.begin(), sub.end());
+            cout << sub;
+            cout << endl;
+        }
+    }
+}
+
 
 void encrypted() {
     string message {};
