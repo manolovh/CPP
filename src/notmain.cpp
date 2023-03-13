@@ -1,8 +1,10 @@
-#include <iostream>
+#include <iostream> // required for cin/cout
 #include <climits>
-#include <vector>
-#include <cstring>
-#include <algorithm> 
+#include <vector> // required for vectors
+#include <cstring> // required for string
+#include <algorithm> // required for reverse()
+#include <cstdlib> // required for rand()
+#include <ctime>
 
 using namespace std;
 
@@ -11,11 +13,62 @@ void c_str();
 void cpp_str();
 void encrypted();
 void pyramid();
+void func();
+int add(int, int);
+double add(double, double);
+void print_array(const int numbers[], size_t size);
+void pass_by_ref(int &num);
+void print(vector<int> &v); // const ensures data not modified; &v doesn't make a copy - more performance
 
 int main() {
-
-    pyramid();
+    int num {5};
+    vector <int> v {1, 2, 3, 4, 5};
+    print(v);
+    cout << "Num not modified: " << num << endl;
+    pass_by_ref(num);
+    cout << "Num modified: " << num << endl;
     return 0;
+}
+
+void print(vector<int> &v) {
+    for (auto num: v){
+        num = 10;
+        cout << num << endl;
+    }
+}
+
+void pass_by_ref(int &num) {
+    num = 69;
+}
+
+void print_array(const int numbers[], size_t size) {
+    for (size_t i{0}; i < size; ++i)
+        cout << numbers[i] << endl;
+}
+
+int add(int a, int b) {
+    int result {a + b};
+    return result;
+}
+
+double add(double a, double b) {
+    double result {a + b};
+    return result;
+}
+
+void func() {
+    int random_num{};
+    size_t count {10};
+    int min {1};
+    int max {6};
+
+    cout << "Rand Max is " << RAND_MAX << endl;
+    srand(time(nullptr)); // done in order to return unique nums every time
+
+    for (int i {1}; i <= 10; i++) {
+        random_num = rand() % max + min;
+        cout << "No. " << i << ": " << random_num << endl; 
+    }
 }
 
 void pyramid() {
