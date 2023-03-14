@@ -19,15 +19,153 @@ double add(double, double);
 void print_array(const int numbers[], size_t size);
 void pass_by_ref(int &num);
 void print(vector<int> &v); // const ensures data not modified; &v doesn't make a copy - more performance
+void static_example();
+unsigned long long fibonacci(unsigned long long n);
+unsigned long long factorial(unsigned long long n);
+double a_penny_doubled_everyday(int n, double amount);
+void loop_challenge();
+void print_numbersconst vector <int> &vect);
+void add_num(vector <int> &vec);
+void calculcate_average(const vector <int> &vect);
+void print_smallest(const vector <int> &vect);
+void print_largest(const vector <int> &vect);
+void clear_vector(vector <int> &vec);
+void display_menu();
 
 int main() {
-    int num {5};
-    vector <int> v {1, 2, 3, 4, 5};
-    print(v);
-    cout << "Num not modified: " << num << endl;
-    pass_by_ref(num);
-    cout << "Num modified: " << num << endl;
+    loop_challenge();
     return 0;
+}
+
+void loop_challenge(){
+    vector <int> numbers {1, 2, 3};
+    char choice {};
+    
+    do {
+        display_menu();
+        cin >> choice;
+
+        switch (choice) {
+            case 'P':
+            case 'p': print_numbers(numbers); break;
+            case 'A':
+            case 'a': add_num(numbers); break;
+            case 'M':
+            case 'm': calculcate_average(numbers); break;
+            case 'S':
+            case 's': print_smallest(numbers); break;
+            case 'L':
+            case 'l': print_largest(numbers); break;
+            case 'C':
+            case 'c': clear_vector(numbers); break;
+            case 'q':
+            case 'Q': cout << "Exiting..." << endl; break;
+            default: cout << "Unknown selection, please try again" << endl; break;
+        }
+    } while (choice != 'Q' && choice != 'q');
+}
+
+void display_menu() {
+    cout << endl;
+    cout << "P - Print numbers" << endl;
+    cout << "A - Add a number" << endl;
+    cout << "M - Display the mean of the numbers" << endl;
+    cout << "S - Display the smallest number" << endl;
+    cout << "L - Display the largest number" << endl;
+    cout << "C - Clear the list" << endl;
+    cout << "Q - Quit" << endl;
+    cout << "\nEnter your choice: ";
+}
+
+void clear_vector(vector <int> &vect) {
+    if (vect.size() == 0)
+        cout << "The list is already empty.";
+    else {
+        vect.clear();
+        cout << "The list has been cleared" << endl;
+    }
+}
+
+void print_largest(const vector <int> &vect) {
+    if (vect.size() == 0)
+        cout << "Unable to determine the largest number - the list is empty";
+    else {
+        int largest {vect[0]};
+        for (auto elem: vect) {
+            if (elem > largest)
+                largest = elem;
+        }
+        cout << "The largest number is " << largest << endl;
+    }
+}
+
+void print_smallest(const vector <int> &vect) {
+    if (vect.size() == 0)
+        cout << "Unable to determine the smallest number - the list is empty";
+    else {
+        int smallest {vect[0]};
+        for (auto elem: vect) {
+            if (elem < smallest)
+                smallest = elem;
+        }
+        cout << "The smallest number is " << smallest << endl;
+    }
+}
+
+void calculcate_average(const vector <int> &vect) {
+    if (vect.size() == 0)
+        cout << "Unable to calculate the average - no data";
+    else {
+        int total {};
+        for (auto elem: vect)
+            total += elem;
+        cout << "Average: " << static_cast<double>(total) / vect.size() << endl;
+    }
+}
+
+void add_num(vector <int> &vect) {
+    int num {};
+    cout << "Enter the number to add: ";
+    cin >> num;
+    vect.push_back(num);
+    cout << num << " added" << endl;
+}
+
+void print_numbers(const vector <int> &vect){
+    if (vect.size() == 0)
+        cout << "[] - the list is empty";
+    else {
+        cout << "[ ";
+        for (auto elem: vect){
+            cout << elem << " ";
+            }
+        cout << "]" << endl;
+    }
+}
+
+double a_penny_doubled_everyday(int n, double amount) {
+    if (n <= 1)
+        return amount;
+    return a_penny_doubled_everyday(n - 1, amount * 2);
+
+}
+unsigned long long factorial(unsigned long long n) {
+    if (n == 0)
+        return 1;
+    return n * factorial(n - 1);
+}
+
+unsigned long long fibonacci(unsigned long long n) {
+    if (n <= 1)
+        return 1;
+    return fibonacci(n - 1) + fibonacci(n - 2);
+}
+
+void static_example() {
+    static int number {100};
+    cout << "Before modifying: " << number << endl;
+    number += 50;
+    cout << "After modifying: " << number << endl;
 }
 
 void print(vector<int> &v) {
@@ -58,7 +196,6 @@ double add(double a, double b) {
 
 void func() {
     int random_num{};
-    size_t count {10};
     int min {1};
     int max {6};
 
@@ -78,7 +215,7 @@ void pyramid() {
 
     for (size_t i {0}; i < user_input.size(); i++) {
         size_t counter = user_input.size() - (i + 1);
-        for (int j {0}; j < counter; j++)
+        for (size_t j {0}; j < counter; j++)
                 cout << " ";
         
         if (i == 0)
