@@ -106,7 +106,7 @@ void custom_deleters_func() {
     cout << p1->get_name() << ", where are you?" << endl;
 }
 
-int main() {
-    custom_deleters_func();
-    return 0;
-}
+// int main() {
+//     custom_deleters_func();
+//     return 0;
+// }
