@@ -46,9 +46,22 @@ void float_formatting() {
     std::cout << std::showpoint << std::setprecision(6);
 
     std::cout << 12.34 << std::endl; // +12.3400
+    std::cout << 12.34 << std::endl; // +12.3400
+}
+
+void width_align_fill() {
+    /* right justifies the first element 10 width
+       setw(n) applies only to the next element after it */
+    std::cout << std::setw(10) << 1515
+              << std::setw(10) << 2020 << std::endl;
+
+    std::cout << std::setw(10)
+              // left justifies to the left and sets spaces to dots(.)
+              << std::left << std::setfill('.')
+              << 12345 << 12345 << std::endl;
 }
 
 int main() {
-    float_formatting();
+    width_align_fill();
     return 0;
 }
