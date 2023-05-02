@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <sstream>
 
 // ----------------- Reading from a file ---------------------
 void reading_1() {
@@ -50,10 +51,10 @@ int read_whole_file() {
 // --------------- Reading from a file end -----------------
 
 
-// --------------- Writing to a file end -------------------
+// ---------------- Writing to a file ----------------------
 int writing_1() {
     // std::fstream out_file("./pesho.txt", std::ios::out | std::ios::binary);
-    std::ofstream out_file("./pesho.txt", std::ios::binary);
+    // std::ofstream out_file("./pesho.txt", std::ios::binary);
 
     std::ofstream out_file2;
     std::string filename;
@@ -72,8 +73,42 @@ int writing_1() {
     out_file2.close();
     return 0;
 }
+// --------------- Writing to a file end -------------------
 
+// ---------- Using stringstream to read/write data --------
+int string_stream() {
+    int num {};
+    double total {};
+    std::string name {};
+    std::string info {"Pesho 100 1234.5"};
+
+    std::istringstream iss{info};
+    iss >> name >> num >> total;
+
+    std::ostringstream oss {};
+    oss << name << " " << num << " " << total;
+    std::cout << oss.str() << std::endl;
+
+    return 0;
+}
+
+int data_validation() {
+    int value {};
+    std::string input {};
+
+    std::cout << "Enter an int: ";
+    std::cin >> input;
+
+    std::stringstream ss{input};
+    if (ss >> value)
+        std::cout << "You entered an int" << std::endl;
+    else
+        std::cout << "You did not enter an int" << std::endl;
+
+    return 0;
+}
+// -------- Using stringstream to read/write data end ------
 
 int main() {
-    writing_1();
+    data_validation();
 }
