@@ -1,5 +1,7 @@
 #include <iostream>
+#include <utility>
 
+// ---------------- Function Templates ----------------
 template <typename T>
 T max(T a, T b){
     return (a > b) ? a : b;
@@ -16,6 +18,21 @@ void swap(T &a, T &b) {
     a = b;
     b = temp;
 }
+// -------------- End Function Templates --------------
+
+// ----------------- Class Templates ------------------
+template<typename T>
+class Item {
+private:
+    std::string name;
+    T value;
+public:
+    Item(std::string name, T value)
+        : name{name}, value{value} {}
+    std::string get_name() const {return name;}
+    T get_value() const {return value;}
+};
+
 
 struct Person {
     std::string name;
@@ -30,8 +47,7 @@ std::ostream &operator<<(std::ostream &os, const Person &p) {
     return os; 
 }
 
-
-int main() {
+void func_template_ex() {
     std::cout << max<int>(12, 10) << std::endl;
     std::cout << max<double>(10.0, 12.0) << std::endl;
     std::cout << max<char>('a', 'c') << std::endl;
@@ -52,5 +68,23 @@ int main() {
     swap(a, b);
 
     std::cout << a << " " << b << std::endl;
+}
+
+void class_template_ex() {
+    Item<int> milk{"Milk (gr)", 1000};
+    Item<int> almonds{"Almonds (gr)", 100};
+    Item<double> gold_necklace{"Gold necklace (gr)", 1.92};
+    Item<std::string> book{"J.B.Peterson (book)", "Beyond order"};
+
+    std::cout << milk.get_name() << " - " << milk.get_value() << std::endl;
+    std::cout << almonds.get_name() << " - " << almonds.get_value() << std::endl;
+    std::cout << gold_necklace.get_name() << " - " << gold_necklace.get_value() << std::endl;
+    std::cout << book.get_name() << " - " << book.get_value() << std::endl;
+}
+
+int main() {
+    std::pair<std::string, int> pesho {"Pesho", 25};
+    std::cout << pesho.first << std::endl;
+    std::cout << pesho.second << std::endl;
     return 0;
 }
