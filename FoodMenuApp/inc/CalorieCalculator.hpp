@@ -7,7 +7,8 @@ struct CaloriesData {
     int bmr_calories;
     int weight_maintain_calories;
     int weight_gain_calories;
-    int weight_lose_calories;
+    int weight_lose_half_kg_calories;
+    int weight_lose_one_kg_calories;
 };
 
 CaloriesData calculate_calories(

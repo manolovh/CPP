@@ -7,13 +7,15 @@ CaloriesData calculate_calories(CaloriesData data, char gender, int age, double 
         data.bmr_calories = (10 * weight) + (6.25 * height) - (5 * age) + 5;
         data.weight_maintain_calories = determine_maintain_calories(data, activity);
         data.weight_gain_calories = data.weight_maintain_calories + 300;
-        data.weight_lose_calories = data.weight_maintain_calories - 300;
+        data.weight_lose_half_kg_calories = data.weight_maintain_calories - (7500 * (weight * 0.005) / 7);
+        data.weight_lose_one_kg_calories = data.weight_maintain_calories - (7500 * (weight * 0.01) / 7);
     }
     else if (toupper(gender) == 'F') {
         data.bmr_calories = (10 * weight) + (6.25 * height) - (5 * age) - 161;
         data.weight_maintain_calories = determine_maintain_calories(data, activity);
         data.weight_gain_calories = data.weight_maintain_calories + 250;
-        data.weight_lose_calories = data.weight_maintain_calories - 250;
+        data.weight_lose_half_kg_calories = data.weight_maintain_calories - (7500 * (weight * 0.005) / 7);
+        data.weight_lose_one_kg_calories = data.weight_maintain_calories - (7500 * (weight * 0.01) / 7);
     }
     return data;
 }
