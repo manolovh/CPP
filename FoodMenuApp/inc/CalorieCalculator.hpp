@@ -2,11 +2,14 @@
 #define _CALORIE_CALCULATOR_HPP
 #include <cctype>
 #include <ostream>
+#include "./MacrosCalculator.hpp"
 
 const int CALORIES_1_KG_FAT = 8000;
 const int WEEK = 7;
 const double HALF_PERCENT = 0.005;
 const double ONE_PERCENT = 0.01;
+
+struct MacrosData;
 
 struct CaloriesData
 {
@@ -32,11 +35,14 @@ void calculate_calories(
     double height, double weight, int activity
 );
 
-int determine_maintain_calories(CaloriesData const& data, int const& activity);
+int determine_maintain_calories(CaloriesData const& data, int activity);
 
 void collect_data(PersonData &data);
 
-void print_calories_info(CaloriesData const& data, int goal);
+void display_info(
+    CaloriesData const& data, MacrosData& macro_data,
+    PersonData const& person_data, int weight_goal
+);
 
 void print_separator();
 

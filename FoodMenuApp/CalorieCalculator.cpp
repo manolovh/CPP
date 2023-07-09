@@ -1,7 +1,7 @@
 #include <iomanip>
 #include <iostream>
-#include "inc/CalorieCalculator.hpp"
-#include "inc/MacrosCalculator.hpp"
+#include "./inc/CalorieCalculator.hpp"
+#include "./inc/MacrosCalculator.hpp"
 
 void collect_data(PersonData &data)
 {
@@ -70,7 +70,7 @@ void calculate_calories(
     }
 }
 
-int determine_maintain_calories(const CaloriesData &data, const int &activity)
+int determine_maintain_calories(const CaloriesData &data, int activity)
 {
     /* Calculate the total calories required for maintaining body weight.
        More activity - more calories. */
@@ -84,21 +84,23 @@ int determine_maintain_calories(const CaloriesData &data, const int &activity)
     return 0;
 }
 
-void print_calories_info(CaloriesData const& data, int goal)
+void display_info(
+    CaloriesData const& data, MacrosData& macro_data,
+    PersonData const& person_data, int weight_goal)
 {
     std::cout << "Base Metabolic Rate (BMR): "
               << std::setw(9) << data.bmr_calories << "kcal\n" << std::endl;
 
     std::string message_choice;
-    int data_choice; 
-    switch (goal)
+    int data_choice;
+    switch (weight_goal)
     {
         case 1:
         message_choice = "Maintain Body weight: ";
         data_choice = data.weight_maintain_calories; break;
 
         case 2:
-        message_choice = "Lose Body weight (0,5 kg/week): "
+        message_choice = "Lose Body weight (0,5 kg/week): ";
         data_choice = data.weight_lose_half_kg_calories; break;
 
         case 3:
@@ -113,12 +115,13 @@ void print_calories_info(CaloriesData const& data, int goal)
         message_choice = "You did not choose a correct option. Here are calories for maintaing your body weight: ";
         data_choice = data.weight_maintain_calories; break;
     }
-    
     std::cout << message_choice << data_choice << " kcal" << std::endl;
+    print_separator();
 
     char macros_choice;
-    std::cout << "Do you want to get example macronutrient plan for your goal? (Y/N): ";
+    std::cout << "Do you want a macronutrient plan for your goal? (Y/N): ";
     std::cin >> macros_choice;
     
-    calculate_macros(macro_data, person_data, cal_data);
+    if (toupper(macros_choice) == 'Y')
+        calculate_macros(macro_data, person_data, data_choice);
 }

@@ -16,7 +16,9 @@ int main()
         person_data.height, person_data.weight, person_data.activity
     );
 
-    print_calories_info(cal_data, person_data.goal);
+    display_info(cal_data, macro_data, person_data, person_data.goal);
+
+    print_macros(macro_data);
 
     return 0;
 }
