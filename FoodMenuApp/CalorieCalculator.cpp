@@ -36,6 +36,13 @@ void collect_data(PersonData &data)
                  "    Choose your current goal: ";
     std::cin >> data.goal;
     print_separator();
+
+    char macros_choice;
+    std::cout << "Do you want a macronutrient plan for your goal? (Y/N): ";
+    std::cin >> macros_choice;
+    
+    if (toupper(macros_choice) == 'Y')
+        data.wants_macros = true;
 }
 
 void print_separator()
@@ -88,8 +95,8 @@ void display_info(
     CaloriesData const& data, MacrosData& macro_data,
     PersonData const& person_data, int weight_goal)
 {
-    std::cout << "Base Metabolic Rate (BMR): "
-              << std::setw(9) << data.bmr_calories << "kcal\n" << std::endl;
+    std::cout << "\nBase Metabolic Rate (BMR): "
+              << std::setw(FORMAT_SIZE - 27) << data.bmr_calories << "kcal" << std::endl;
 
     std::string message_choice;
     int data_choice;
@@ -115,13 +122,7 @@ void display_info(
         message_choice = "You did not choose a correct option. Here are calories for maintaing your body weight: ";
         data_choice = data.weight_maintain_calories; break;
     }
-    std::cout << message_choice << data_choice << " kcal" << std::endl;
-    print_separator();
-
-    char macros_choice;
-    std::cout << "Do you want a macronutrient plan for your goal? (Y/N): ";
-    std::cin >> macros_choice;
-    
-    if (toupper(macros_choice) == 'Y')
+    std::cout << message_choice << std::setw(FORMAT_SIZE - message_choice.size()) << data_choice << "kcal" << std::endl;
+    if (person_data.wants_macros)
         calculate_macros(macro_data, person_data, data_choice);
 }

@@ -8,6 +8,7 @@ const int CALORIES_1_KG_FAT = 8000;
 const int WEEK = 7;
 const double HALF_PERCENT = 0.005;
 const double ONE_PERCENT = 0.01;
+const int FORMAT_SIZE = 36;
 
 struct MacrosData;
 
@@ -28,6 +29,7 @@ struct PersonData
     double weight;
     int activity;
     int goal;
+    bool wants_macros;
 };
 
 void calculate_calories(

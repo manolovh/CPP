@@ -10,15 +10,17 @@ int main()
     MacrosData macro_data;
 
     collect_data(person_data);
-    
+
     calculate_calories(
         cal_data, person_data.gender, person_data.age,
         person_data.height, person_data.weight, person_data.activity
     );
-
+    
     display_info(cal_data, macro_data, person_data, person_data.goal);
 
-    print_macros(macro_data);
+    if (person_data.wants_macros)
+        print_macros(macro_data);
 
+    print_meal_plan(macro_data);
     return 0;
 }

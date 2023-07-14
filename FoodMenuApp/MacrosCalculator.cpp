@@ -1,5 +1,6 @@
 #include "inc/MacrosCalculator.hpp"
 #include <iostream>
+#include <iomanip>
 
 
 void calculate_macros(
@@ -33,8 +34,32 @@ void calculate_macros(
     macro_data.gr_carbs = calorie_buffer / CALORIES_IN_CARBS;
 }
 
-void print_macros(MacrosData const& macro_data) {
-    std::cout << "\nGrams of protein: " << macro_data.gr_protein << std::endl;
-    std::cout << "Grams of carbohydrate: " << macro_data.gr_carbs << std::endl;
-    std::cout << "Grams of fat: " << macro_data.gr_fat << std::endl;
+void print_macros(MacrosData const& macro_data)
+{
+    std::cout << std::setfill('-') << std::setw(FORMAT_SIZE + 4) << "";
+    std::cout << "\nGrams of protein: " << std::setfill(' ') << std::setw(8) << macro_data.gr_protein << std::endl;
+    std::cout << "Grams of carbohydrate: " << std::setw(2) << macro_data.gr_carbs << std::endl;
+    std::cout << "Grams of fat: " << std::setw(11) << macro_data.gr_fat << std::endl;
+    std::cout << std::endl;
+}
+
+void create_meal_plan(MealPlan& meal_plan, const MacrosData& macro_data)
+{
+
+}
+
+void print_meal_plan(const MacrosData& macro_data)
+{
+    char choice;
+    std::cout << "Do you need an example meal plan, based on your personal macronutrients? (Y/N): ";
+    std::cin >> choice;
+
+    while (toupper(choice) == 'Y')
+    {
+        MealPlan meal_plan;
+        create_meal_plan(meal_plan, macro_data);
+
+        std::cout << "Here are the meals, specific for your goal. Do you need another for the following day? (Y/N): ";
+        std::cin >> choice;
+    }
 }
