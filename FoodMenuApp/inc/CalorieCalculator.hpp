@@ -4,10 +4,10 @@
 #include <ostream>
 #include "./MacrosCalculator.hpp"
 
-const int CALORIES_1_KG_FAT = 8000;
+const int CALORIES_1_KG_FAT = 7700;
 const int WEEK = 7;
-const double HALF_PERCENT = 0.005;
-const double ONE_PERCENT = 0.01;
+const double QUARTER_KG = 0.25;
+const double HALF_KG = 0.5;
 const int FORMAT_SIZE = 36;
 
 struct MacrosData;
@@ -17,8 +17,8 @@ struct CaloriesData
     int bmr_calories;
     int weight_maintain_calories;
     int weight_gain_calories;
+    int weight_lose_quarter_kg_calories;
     int weight_lose_half_kg_calories;
-    int weight_lose_one_kg_calories;
 };
 
 struct PersonData

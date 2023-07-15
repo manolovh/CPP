@@ -30,8 +30,8 @@ void collect_data(PersonData &data)
     print_separator();
 
     std::cout << "(1) Maintain Body weight\n" \
-                 "(2) Lose 0.5 kg/week\n" \
-                 "(3) Lose 1 kg/week\n" \
+                 "(2) Lose 0.25 kg/week\n" \
+                 "(3) Lose 0.5 kg/week\n" \
                  "(4) Gain Muscle \n\n" \
                  "    Choose your current goal: ";
     std::cin >> data.goal;
@@ -60,20 +60,20 @@ void calculate_calories(
         data.bmr_calories = (10 * weight) + (6.25 * height) - (5 * age) + 5;
         data.weight_maintain_calories = determine_maintain_calories(data, activity);
         data.weight_gain_calories = data.weight_maintain_calories + 300;
+        data.weight_lose_quarter_kg_calories = \
+            data.weight_maintain_calories - (CALORIES_1_KG_FAT * QUARTER_KG / WEEK);
         data.weight_lose_half_kg_calories = \
-            data.weight_maintain_calories - (CALORIES_1_KG_FAT * (weight * HALF_PERCENT) / WEEK);
-        data.weight_lose_one_kg_calories = \
-            data.weight_maintain_calories - (CALORIES_1_KG_FAT * (weight * ONE_PERCENT) / WEEK);
+            data.weight_maintain_calories - (CALORIES_1_KG_FAT * HALF_KG / WEEK);
     }
     else if (toupper(gender) == 'F')
     {
         data.bmr_calories = (10 * weight) + (6.25 * height) - (5 * age) - 161;
         data.weight_maintain_calories = determine_maintain_calories(data, activity);
         data.weight_gain_calories = data.weight_maintain_calories + 250;
+        data.weight_lose_quarter_kg_calories = \
+            data.weight_maintain_calories - (CALORIES_1_KG_FAT * QUARTER_KG / WEEK);
         data.weight_lose_half_kg_calories = \
-            data.weight_maintain_calories - (CALORIES_1_KG_FAT * (weight * HALF_PERCENT) / WEEK);
-        data.weight_lose_one_kg_calories = \
-            data.weight_maintain_calories - (CALORIES_1_KG_FAT * (weight * ONE_PERCENT) / WEEK);
+            data.weight_maintain_calories - (CALORIES_1_KG_FAT * HALF_KG / WEEK);
     }
 }
 
@@ -107,12 +107,12 @@ void display_info(
         data_choice = data.weight_maintain_calories; break;
 
         case 2:
-        message_choice = "Lose Body weight (0,5 kg/week): ";
-        data_choice = data.weight_lose_half_kg_calories; break;
+        message_choice = "Lose Body weight (0,25 kg/week): ";
+        data_choice = data.weight_lose_quarter_kg_calories; break;
 
         case 3:
-        message_choice = "Lose Body weight (1 kg/week): ";
-        data_choice = data.weight_lose_one_kg_calories; break;
+        message_choice = "Lose Body weight (0.5 kg/week): ";
+        data_choice = data.weight_lose_half_kg_calories; break;
 
         case 4:
         message_choice = "Gain Muscle: ";

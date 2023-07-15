@@ -1,6 +1,10 @@
 #include "inc/MacrosCalculator.hpp"
-#include <iostream>
+#include <algorithm>
+#include <cstdlib>
+#include <cstring>
 #include <iomanip>
+#include <iostream>
+#include <vector>
 
 
 void calculate_macros(
@@ -45,14 +49,97 @@ void print_macros(MacrosData const& macro_data)
     std::cout << std::endl;
 }
 
-void create_meal_plan(MealPlan& meal_plan, const MacrosData& macro_data)
+void create_meal(MealPlan& meal_plan, const MacrosData& macro_data)
 {
 
 }
-
-void print_meal(Meal meal)
+ 
+void create_meal_plan(MealPlan& meal_plan, const MacrosData& macro_data)
 {
+    const int PROTEIN_PER_MEAL = (macro_data.gr_protein * 0.9) / NR_OF_MEALS;
+    int total_calories = (macro_data.gr_protein + macro_data.gr_carbs) * 4 + macro_data.gr_fat * 9;
+    MacrosData total_macros;
 
+    ProteinSource proteins;
+    CarbSource carbs;
+    FatSource fats;
+
+    std::vector<FoodItem> prot_meal_1_or_3 {
+        proteins.egg_l, proteins.yoghurt,
+        proteins.cott_cheese, proteins.whey_protein
+    };
+    std::vector<FoodItem> prot_meal_2_or_4 {
+        proteins.chicken, proteins.beef95,
+        proteins.white_fish, proteins.beans
+    };
+
+    for (int i = 1; i <= NR_OF_MEALS; i++)
+    {
+        int random;
+        FoodItem current_item;
+        if (i % 2 == 1)
+        {
+            random = rand() % prot_meal_1_or_3.size();
+            current_item = prot_meal_1_or_3[random];
+            prot_meal_1_or_3.erase(prot_meal_1_or_3.begin() + random);
+        }
+        else
+        {
+            random = rand() % prot_meal_2_or_4.size();
+            current_item = prot_meal_2_or_4[random];
+            prot_meal_2_or_4.erase(prot_meal_2_or_4.begin() + random);
+        }
+
+        switch (i)
+        {
+            case 1:
+            {
+                int breakfast_protein = 100 * (PROTEIN_PER_MEAL / current_item.gr_protein);
+                meal_plan.breakfast.protein = std::to_string(breakfast_protein) + "g. " + current_item.name;
+
+                total_macros.gr_protein = breakfast_protein;
+                total_calories -= PROTEIN_PER_MEAL * CALORIES_IN_PROTEIN;
+            }
+            break;
+
+            case 2:
+            {
+                int lunch_protein = 100 * (PROTEIN_PER_MEAL / current_item.gr_protein);
+                meal_plan.lunch.protein = std::to_string(lunch_protein) + "g. " + current_item.name;
+
+                total_macros.gr_protein += lunch_protein;
+                total_calories -= PROTEIN_PER_MEAL * CALORIES_IN_PROTEIN;
+            }
+            break;
+
+            case 3:
+            {
+                int afternoon_breakfast_protein = 100 * (PROTEIN_PER_MEAL / current_item.gr_protein);
+                meal_plan.afternoon_breakfast.protein = std::to_string(afternoon_breakfast_protein) + "g. " + current_item.name;
+
+                total_macros.gr_protein += afternoon_breakfast_protein;
+                total_calories -= PROTEIN_PER_MEAL * CALORIES_IN_PROTEIN;
+            }
+            break;
+
+            case 4:
+            {
+                int dinner_protein = 100 * (PROTEIN_PER_MEAL / current_item.gr_protein);
+                meal_plan.dinner.protein = std::to_string(dinner_protein) + "g. " + current_item.name;
+
+                total_macros.gr_protein += dinner_protein;
+                total_calories -= PROTEIN_PER_MEAL * CALORIES_IN_PROTEIN;
+            }
+            break;
+        }
+    }
+}
+
+void print_meal(Meal const& meal)
+{
+    std::cout << meal.protein << std::endl;
+    std::cout << meal.carbs << std::endl;
+    std::cout << meal.fats << std::endl;
 }
 
 void print_meal_plan(const MacrosData& macro_data)
