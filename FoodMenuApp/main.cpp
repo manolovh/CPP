@@ -21,6 +21,12 @@ int main()
     if (person_data.wants_macros)
         print_macros(macro_data);
 
-    print_meal_plan(macro_data);
+    char choice;
+    std::cout << "Want an example meal plan, based on your goal? (Y/N): ";
+    std::cin >> choice;
+
+    if (toupper(choice) == 'Y')
+        print_meal_plan(macro_data);
+
     return 0;
 }

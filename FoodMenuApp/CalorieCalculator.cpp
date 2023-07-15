@@ -38,7 +38,7 @@ void collect_data(PersonData &data)
     print_separator();
 
     char macros_choice;
-    std::cout << "Do you want a macronutrient plan for your goal? (Y/N): ";
+    std::cout << "Want a macronutrient plan for your goal? (Y/N): ";
     std::cin >> macros_choice;
     
     if (toupper(macros_choice) == 'Y')

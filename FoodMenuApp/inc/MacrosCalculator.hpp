@@ -21,7 +21,7 @@ struct Meal
 {
     std::string protein_source;
     std::string carb_source;
-    std:string fat_source;
+    std::string fat_source;
 };
 
 struct MealPlan
@@ -36,8 +36,10 @@ void calculate_macros(MacrosData& macro_data, PersonData const& person_data, int
 
 void print_macros(MacrosData const& macro_data);
 
-void print_meal_plan();
+void print_meal(Meal meal);
 
-void create_meal_plan(MealPlan& meal_plan);
+void print_meal_plan(const MacrosData& macro_data);
+
+void create_meal_plan(MealPlan& meal_plan, const MacrosData& macro_data);
 
 #endif //  _MACROS_CALCULATOR_HPP
