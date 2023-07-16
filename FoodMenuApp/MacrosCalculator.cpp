@@ -117,10 +117,6 @@ void create_meal_plan(MealPlan& meal_plan, const MacrosData& macro_data)
             double portion_size_ham_100g = needed_protein / proteins.ham.gr_protein;
             int quantity_ham = 100 * portion_size_ham_100g;
 
-            meals[i-1].gr_protein += proteins.ham.gr_protein * portion_size_ham_100g;
-            meals[i-1].gr_fat += proteins.ham.gr_fat * portion_size_ham_100g;
-            meals[i-1].gr_carbs += proteins.ham.gr_carb * portion_size_ham_100g;
-
             switch (i)
             {
                 case 1:
@@ -137,7 +133,7 @@ void create_meal_plan(MealPlan& meal_plan, const MacrosData& macro_data)
                     "\n250g. Egg"; break;
             }
 
-            save_meal_data(meals, total_macros, total_calories, current_item, portion_size_100g, i-1);
+            save_meal_data(meals, total_macros, total_calories, proteins.ham, portion_size_ham_100g, i-1);
         }
         else
         {
@@ -179,14 +175,13 @@ void create_meal_plan(MealPlan& meal_plan, const MacrosData& macro_data)
         save_meal_data(meals, total_macros, total_calories, current_item, portion_size_100g, i-1);
 
         const int CARBS_PER_MEAL = macro_data.gr_carbs / NR_OF_MEALS;
+        random = rand() % carb_sources.size();
+        current_item = carb_sources[random];
 
         if (meals[i-1].gr_carbs < CARBS_PER_MEAL)
         {
             portion_size_100g = (CARBS_PER_MEAL - meals[i-1].gr_carbs) / current_item.gr_carb;
             quantity = 100 * portion_size_100g;
-
-            random = rand() % carb_sources.size();
-            current_item = carb_sources[random];
 
             switch (i)
             {
@@ -255,6 +250,8 @@ void print_meal_plan(const MacrosData& macro_data)
 
         std::cout << "\n---Dinner---" << std::endl;
         print_meal(meal_plan.dinner);
+
+        std::cout << "\n---Fruits and Vegetables---" << std::endl;
 
         if (meal_plans_created == 3)
         {
