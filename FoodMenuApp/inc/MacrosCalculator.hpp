@@ -1,6 +1,7 @@
 #ifndef _MACROS_CALCULATOR_HPP
 #define _MACROS_CALCULATOR_HPP
 
+#include <memory>
 #include "CalorieCalculator.hpp"
 
 const int CALORIES_IN_PROTEIN = 4;
@@ -38,12 +39,13 @@ struct ProteinSource
 {
     FoodItem chicken      {"Chicken", 135, 27, 0, 3};
     FoodItem beef95       {"Beef 95%", 133, 22, 0, 5};
-    FoodItem egg_l        {"Large Egg", 78, 6, 1, 5};
+    FoodItem egg          {"Egg", 155, 13, 1, 11};
     FoodItem yoghurt      {"Greek Yoghurt", 65, 10, 4, 1};
     FoodItem white_fish   {"White Fish", 172, 24, 0, 8};
     FoodItem beans        {"Beans", 345, 21, 63, 1};
     FoodItem whey_protein {"Whey Protein", 379, 73, 6, 7};
     FoodItem cott_cheese  {"Cottage Cheese", 100, 11, 4, 4};
+    FoodItem ham          {"Ham", 145, 21, 2, 6};
 };
 
 struct CarbSource
@@ -89,12 +91,16 @@ void calculate_macros(MacrosData& macro_data, PersonData const& person_data, int
 
 void print_macros(MacrosData const& macro_data);
 
-void create_meal(MealPlan& meal_plan, const MacrosData& macro_data);
-
 void print_meal(Meal const& meal);
 
 void create_meal_plan(MealPlan& meal_plan, const MacrosData& macro_data);
 
 void print_meal_plan(const MacrosData& macro_data);
+
+void save_meal_data(
+    MacrosData meals[4], MacrosData& total_macros, int& total_calories,
+    FoodItem const& current_item, double portion_size_100g, int idx);
+
+void test(const MacrosData& total_macros, MacrosData meals[4]);
 
 #endif //  _MACROS_CALCULATOR_HPP
