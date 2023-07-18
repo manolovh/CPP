@@ -1,7 +1,6 @@
 #ifndef _MACROS_CALCULATOR_HPP
 #define _MACROS_CALCULATOR_HPP
 
-#include <memory>
 #include "CalorieCalculator.hpp"
 
 const int CALORIES_IN_PROTEIN = 4;
@@ -100,6 +99,8 @@ void print_meal_plan(const MacrosData& macro_data);
 void save_meal_data(
     MacrosData meals[4], MacrosData& total_macros, int& total_calories,
     FoodItem const& current_item, double portion_size_100g, int idx);
+
+void round_quantity(int& quantity);
 
 void test(const MacrosData& total_macros, MacrosData meals[4]);
 

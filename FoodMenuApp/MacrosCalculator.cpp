@@ -17,9 +17,13 @@ void calculate_macros(
        2. If more, limit calories from protein to max 35%, because if the person is overweight,
        more protein will be not be optimally utilized anyway. */
     if ((calorie_buffer - (person_data.weight * 2 * CALORIES_IN_PROTEIN)) < (calorie_buffer * 0.65))
+    {
         macro_data.gr_protein = (calorie_buffer * 0.35) / CALORIES_IN_PROTEIN;
+    }
     else
+    {
         macro_data.gr_protein = person_data.weight * 2;
+    }
 
     /* 1. Set aside for each individual at least 1gr of fat/kg for optimized hormone secretion
        and optimized essential vitamins absorbtion.
@@ -28,9 +32,13 @@ void calculate_macros(
        3. Save more calories for carbohydrates, so they can be used as a direct
        energy source. This leads to a more energetic and less lethargic person. */ 
     if (person_data.weight > (person_data.height - 100))
+    {
         macro_data.gr_fat = person_data.height - 100;
+    }
     else
+    {
         macro_data.gr_fat = person_data.weight;
+    }
 
     // Subtract calories from protein and fat from the buffer
     calorie_buffer -= macro_data.gr_protein * CALORIES_IN_PROTEIN;
@@ -53,7 +61,6 @@ void create_meal_plan(MealPlan& meal_plan, const MacrosData& macro_data)
 {
     // Get 90% of protein directly from protein sources and leave 10 % for secondary ones
     const int PROTEIN_PER_MEAL = (macro_data.gr_protein * 0.9) / NR_OF_MEALS;
-    const int FAT_PER_MEAL = macro_data.gr_fat / NR_OF_MEALS;
     int total_calories = (macro_data.gr_protein + macro_data.gr_carbs) * 4 + macro_data.gr_fat * 9;
 
     // leave 15 % for satiating and rich in fiber foods - fruits and vegetables
@@ -89,6 +96,8 @@ void create_meal_plan(MealPlan& meal_plan, const MacrosData& macro_data)
 
     for (int i = 1; i <= NR_OF_MEALS; i++)
     {
+        size_t meals_left = NR_OF_MEALS;
+        int FAT_PER_MEAL = (macro_data.gr_fat - total_macros.gr_fat) / meals_left;
         int random;
         FoodItem current_item;
 
@@ -107,15 +116,27 @@ void create_meal_plan(MealPlan& meal_plan, const MacrosData& macro_data)
 
         double portion_size_100g = 0;
         int quantity = 0;
-
+        
         // Replace everything over 5 eggs (250g.) with ham
-        if ((current_item.name == "Egg") && PROTEIN_PER_MEAL >= 30)
+        if ((current_item.name == "Egg"))
         {
-            portion_size_100g = 2.5;
+            int max_protein_from_eggs;
+            if (macro_data.gr_fat < 70)
+            {
+                max_protein_from_eggs = 18;
+            }
+            else
+            {
+                max_protein_from_eggs = 30;
+            }
 
-            int needed_protein = PROTEIN_PER_MEAL - 30;
+            portion_size_100g = (max_protein_from_eggs / 6) * 50;
+
+            int needed_protein = PROTEIN_PER_MEAL - max_protein_from_eggs;
             double portion_size_ham_100g = needed_protein / proteins.ham.gr_protein;
+
             int quantity_ham = 100 * portion_size_ham_100g;
+            round_quantity(quantity_ham);
 
             switch (i)
             {
@@ -140,6 +161,8 @@ void create_meal_plan(MealPlan& meal_plan, const MacrosData& macro_data)
             portion_size_100g = PROTEIN_PER_MEAL / current_item.gr_protein;
             quantity = 100 * portion_size_100g;
 
+            round_quantity(quantity);
+
             switch (i)
             {
                 case 1:
@@ -158,8 +181,18 @@ void create_meal_plan(MealPlan& meal_plan, const MacrosData& macro_data)
         random = rand() % fat_sources.size();
         current_item = fat_sources[random];
 
-        portion_size_100g = (FAT_PER_MEAL - meals[i-1].gr_fat) / current_item.gr_fat;
+        if (FAT_PER_MEAL > meals[i-1].gr_fat)
+        {
+            portion_size_100g = (FAT_PER_MEAL - meals[i-1].gr_fat) / current_item.gr_fat;
+        }
+        else
+        {
+            portion_size_100g = meals[i-1].gr_fat / current_item.gr_fat;
+        }
+
         quantity = 100 * portion_size_100g;
+        round_quantity(quantity);
+
         switch (i)
         {
             case 1:
@@ -182,6 +215,8 @@ void create_meal_plan(MealPlan& meal_plan, const MacrosData& macro_data)
         {
             portion_size_100g = (CARBS_PER_MEAL - meals[i-1].gr_carbs) / current_item.gr_carb;
             quantity = 100 * portion_size_100g;
+
+            round_quantity(quantity);
 
             switch (i)
             {
@@ -212,7 +247,7 @@ void create_meal_plan(MealPlan& meal_plan, const MacrosData& macro_data)
                     meal_plan.dinner.carbs = message; break;
             }
         }
-
+        meals_left--;
         test(total_macros, meals);
     }
 }
@@ -237,7 +272,9 @@ void print_meal_plan(const MacrosData& macro_data)
         create_meal_plan(meal_plan, macro_data);
 
         if (meal_plans_created == 1)
+        {
             std::cout << "\n-----Example meals, created for your specific goal-----" << std::endl;
+        }
 
         std::cout << "\n---Breakfast---" << std::endl;
         print_meal(meal_plan.breakfast);
@@ -283,9 +320,22 @@ void test(const MacrosData& total_macros, MacrosData meals[4])
     std::cout << "FATS: " << total_macros.gr_fat << std::endl;
     for (int i = 0; i < 4; i++)
     {
-    std::cout << "P " << meals[i].gr_protein << std::endl;
-    std::cout << "G " << meals[i].gr_carbs << std::endl;
-    std::cout << "F " << meals[i].gr_fat << std::endl;
-    std::cout << "--------------" << std::endl;
+        std::cout << "P " << meals[i].gr_protein << std::endl;
+        std::cout << "G " << meals[i].gr_carbs << std::endl;
+        std::cout << "F " << meals[i].gr_fat << std::endl;
+        std::cout << "--------------" << std::endl;
+    }
+}
+
+void round_quantity(int& quantity)
+{
+    // Make all grams end in either 5 or 10 for more aesthetic look
+    if (quantity % 5 < 3)
+    {
+        quantity -= quantity % 5;
+    }
+    else
+    {
+        quantity += 5 - quantity % 5;
     }
 }
