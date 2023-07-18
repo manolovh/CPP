@@ -41,7 +41,7 @@ struct ProteinSource
     FoodItem egg          {"Egg", 155, 13, 1, 11};
     FoodItem yoghurt      {"Greek Yoghurt", 65, 10, 4, 1};
     FoodItem white_fish   {"White Fish", 172, 24, 0, 8};
-    FoodItem beans        {"Beans", 345, 21, 63, 1};
+    FoodItem tofu         {"Tofu", 84, 10, 1, 5};
     FoodItem whey_protein {"Whey Protein", 379, 73, 6, 7};
     FoodItem cott_cheese  {"Cottage Cheese", 100, 11, 4, 4};
     FoodItem ham          {"Ham", 145, 21, 2, 6};

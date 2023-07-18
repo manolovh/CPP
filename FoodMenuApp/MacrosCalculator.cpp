@@ -74,14 +74,13 @@ void create_meal_plan(MealPlan& meal_plan, const MacrosData& macro_data)
     CarbSource carbs;
     FatSource fats;
 
-
     std::vector<FoodItem> prot_meal_1_or_3 {
         proteins.egg, proteins.yoghurt,
         proteins.cott_cheese, proteins.whey_protein
     };
     std::vector<FoodItem> prot_meal_2_or_4 {
         proteins.chicken, proteins.beef95,
-        proteins.white_fish, proteins.beans
+        proteins.white_fish, proteins.tofu
     };
 
     std::vector<FoodItem> fat_sources {
@@ -116,6 +115,7 @@ void create_meal_plan(MealPlan& meal_plan, const MacrosData& macro_data)
 
         double portion_size_100g = 0;
         int quantity = 0;
+        std::string message;
         
         // Replace everything over 5 eggs (250g.) with ham
         if ((current_item.name == "Egg"))
@@ -138,20 +138,17 @@ void create_meal_plan(MealPlan& meal_plan, const MacrosData& macro_data)
             int quantity_ham = 100 * portion_size_ham_100g;
             round_quantity(quantity_ham);
 
+            message = std::to_string(quantity_ham) + "g. " + proteins.ham.name + " & 250g. Egg";
             switch (i)
             {
                 case 1:
-                    meal_plan.breakfast.protein = std::to_string(quantity_ham) + "g. " + proteins.ham.name + \
-                    "\n250g. Egg"; break;
+                    meal_plan.breakfast.protein = message; break;
                 case 2:
-                    meal_plan.lunch.protein = std::to_string(quantity_ham) + "g. " + proteins.ham.name + \
-                    "\n250g. Egg"; break;
+                    meal_plan.lunch.protein = message; break;
                 case 3:
-                    meal_plan.afternoon_breakfast.protein = std::to_string(quantity_ham) + "g. " + proteins.ham.name + \
-                    "\n250g. Egg"; break;
+                    meal_plan.afternoon_breakfast.protein = message; break;
                 case 4:
-                    meal_plan.dinner.protein = std::to_string(quantity_ham) + "g. " + proteins.ham.name + \
-                    "\n250g. Egg"; break;
+                    meal_plan.dinner.protein = message; break;
             }
 
             save_meal_data(meals, total_macros, total_calories, proteins.ham, portion_size_ham_100g, i-1);
@@ -163,16 +160,17 @@ void create_meal_plan(MealPlan& meal_plan, const MacrosData& macro_data)
 
             round_quantity(quantity);
 
+            message = std::to_string(quantity) + "g. " + current_item.name;
             switch (i)
             {
                 case 1:
-                    meal_plan.breakfast.protein = std::to_string(quantity) + "g. " + current_item.name; break;
+                    meal_plan.breakfast.protein = message; break;
                 case 2:
-                    meal_plan.lunch.protein = std::to_string(quantity) + "g. " + current_item.name; break;
+                    meal_plan.lunch.protein = message; break;
                 case 3:
-                    meal_plan.afternoon_breakfast.protein = std::to_string(quantity) + "g. " + current_item.name; break;
+                    meal_plan.afternoon_breakfast.protein = message; break;
                 case 4:
-                    meal_plan.dinner.protein = std::to_string(quantity) + "g. " + current_item.name; break;
+                    meal_plan.dinner.protein = message; break;
             }
 
             save_meal_data(meals, total_macros, total_calories, current_item, portion_size_100g, i-1);
@@ -193,16 +191,25 @@ void create_meal_plan(MealPlan& meal_plan, const MacrosData& macro_data)
         quantity = 100 * portion_size_100g;
         round_quantity(quantity);
 
+        if (quantity == 0)
+        {
+            message = "No added fats for this meal.";
+        }
+        else
+        {
+            message = std::to_string(quantity) + "g. " + current_item.name;
+        }
+
         switch (i)
         {
             case 1:
-                meal_plan.breakfast.fats = std::to_string(quantity) + "g. " + current_item.name; break;
+                meal_plan.breakfast.fats = message; break;
             case 2:
-                meal_plan.lunch.fats = std::to_string(quantity) + "g. " + current_item.name; break;
+                meal_plan.lunch.fats = message; break;
             case 3:
-                meal_plan.afternoon_breakfast.fats = std::to_string(quantity) + "g. " + current_item.name; break;
+                meal_plan.afternoon_breakfast.fats = message; break;
             case 4:
-                meal_plan.dinner.fats = std::to_string(quantity) + "g. " + current_item.name; break;
+                meal_plan.dinner.fats = message; break;
         }
 
         save_meal_data(meals, total_macros, total_calories, current_item, portion_size_100g, i-1);
@@ -218,23 +225,24 @@ void create_meal_plan(MealPlan& meal_plan, const MacrosData& macro_data)
 
             round_quantity(quantity);
 
+            message = std::to_string(quantity) + "g. " + current_item.name;
             switch (i)
             {
                 case 1:
-                    meal_plan.breakfast.carbs = std::to_string(quantity) + "g. " + current_item.name; break;
+                    meal_plan.breakfast.carbs = message; break;
                 case 2:
-                    meal_plan.lunch.carbs = std::to_string(quantity) + "g. " + current_item.name; break;
+                    meal_plan.lunch.carbs = message; break;
                 case 3:
-                    meal_plan.afternoon_breakfast.carbs = std::to_string(quantity) + "g. " + current_item.name; break;
+                    meal_plan.afternoon_breakfast.carbs = message; break;
                 case 4:
-                    meal_plan.dinner.carbs = std::to_string(quantity) + "g. " + current_item.name; break;
+                    meal_plan.dinner.carbs = message; break;
             }
 
             save_meal_data(meals, total_macros, total_calories, current_item, portion_size_100g, i-1);
         }
         else
         {
-            std::string message = "No additional carbohydrates for this meal";
+            message = "No added carbs for this meal";
             switch (i)
             {
                 case 1:
@@ -254,10 +262,11 @@ void create_meal_plan(MealPlan& meal_plan, const MacrosData& macro_data)
 
 void print_meal(Meal const& meal)
 {
-    std::cout << meal.protein << std::endl;
-    std::cout << meal.carbs << std::endl;
-    std::cout << meal.fats << std::endl;
-    std::cout << "-------------------------" << std::endl;
+    std::cout << "\t# " << meal.protein << std::setw(30 - meal.protein.size()) << std::setfill(' ') << "#" << std::endl;
+    std::cout << "\t# " << meal.carbs << std::setw(30 - meal.carbs.size()) << std::setfill(' ') << " #" << std::endl;
+    std::cout << "\t# " << meal.fats << std::setw(30 - meal.fats.size()) << std::setfill(' ') << "#" << std::endl;
+    std::cout << "\t# " << std::setw(30) << std::setfill('-') << "#" << std::endl;
+    std::cout << std::setw(' ');
 }
 
 void print_meal_plan(const MacrosData& macro_data)
@@ -276,19 +285,19 @@ void print_meal_plan(const MacrosData& macro_data)
             std::cout << "\n-----Example meals, created for your specific goal-----" << std::endl;
         }
 
-        std::cout << "\n---Breakfast---" << std::endl;
+        std::cout << "\n\t#----------Breakfast-----------#" << std::endl;
         print_meal(meal_plan.breakfast);
 
-        std::cout << "\n---Lunch---" << std::endl;
+        std::cout << "\n\t#------------Lunch-------------#" << std::endl;
         print_meal(meal_plan.lunch);
 
-        std::cout << "\n---Afternoon Breakfast---" << std::endl;
+        std::cout << "\n\t#-----Afternoon Breakfast------#" << std::endl;
         print_meal(meal_plan.afternoon_breakfast);
 
-        std::cout << "\n---Dinner---" << std::endl;
+        std::cout << "\n\t#------------Dinner------------#" << std::endl;
         print_meal(meal_plan.dinner);
 
-        std::cout << "\n---Fruits and Vegetables---" << std::endl;
+        std::cout << "\n\t#----Fruits and Vegetables-----#" << std::endl;
 
         if (meal_plans_created == 3)
         {
