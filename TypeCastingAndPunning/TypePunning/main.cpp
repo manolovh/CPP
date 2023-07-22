@@ -64,4 +64,6 @@ void struct_as_array() {
 int main()
 {
     struct_as_array();
+
+    return 0;
 }
