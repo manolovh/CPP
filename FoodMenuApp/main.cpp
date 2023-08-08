@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
-#include "inc/CalorieCalculator.hpp"
-#include "inc/MacrosCalculator.hpp"
+#include "inc\CalorieCalculator.hpp"
+#include "inc\MacrosCalculator.hpp"
 
 int main()
 {

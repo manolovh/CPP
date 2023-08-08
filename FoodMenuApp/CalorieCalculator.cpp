@@ -1,7 +1,7 @@
 #include <iomanip>
 #include <iostream>
-#include "./inc/CalorieCalculator.hpp"
-#include "./inc/MacrosCalculator.hpp"
+#include "inc\CalorieCalculator.hpp"
+#include "inc\MacrosCalculator.hpp"
 
 void collect_data(PersonData &data)
 {

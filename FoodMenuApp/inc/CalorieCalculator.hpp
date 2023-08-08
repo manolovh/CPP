@@ -2,7 +2,7 @@
 #define _CALORIE_CALCULATOR_HPP
 #include <cctype>
 #include <ostream>
-#include "./MacrosCalculator.hpp"
+#include "MacrosCalculator.hpp"
 
 const int CALORIES_1_KG_FAT = 7700;
 const int WEEK = 7;

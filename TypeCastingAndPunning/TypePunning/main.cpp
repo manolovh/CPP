@@ -22,7 +22,8 @@ void explicit_conv() {
 
 void address_copying() {
     int a = 5;
-    double b = *(double *)&a; // dereference the pointer which points to address of `a`;
+    // dereference the pointer which points to address of `a`;
+    double b = *(double *)&a;
     // addresses are still not the same,
     // since you are referencing memory which was not allocated for `a`
     std::cout << &a << " " << &b << std::endl;
@@ -45,8 +46,8 @@ void struct_ex() {
 void unnecessary_conversion() {
     Data d = {5, 8};
 
-    /*Get the first element of d (with &d), cast it into a char* (1 byte size),
-     then add + 4 (so you can access the next element). Now you have y, cast it
+    /*Get the address of d, cast it into a char* (1 byte size),
+     then add + 4 (so you can access the next int element). Now you have y, cast it
      back to an int*, dereference it and ... Voila - you have d.y :D */
     int y = *(int *)((char*)&d + 4);
 

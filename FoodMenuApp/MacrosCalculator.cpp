@@ -1,11 +1,11 @@
-#include "inc/MacrosCalculator.hpp"
+#include "inc\MacrosCalculator.hpp"
 #include <algorithm>
 #include <cstdlib>
 #include <cstring>
 #include <iomanip>
 #include <iostream>
 #include <vector>
-
+#include <string>
 
 void calculate_macros(
     MacrosData& macro_data, PersonData const& person_data, int calorie_choice)
