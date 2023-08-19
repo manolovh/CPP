@@ -21,7 +21,9 @@ public:
             string substring = s.substr(i, total_length);
 
             if (substring.size() < total_length)
+            {
                 break;
+            }
 
             while (true)
             {
@@ -36,6 +38,7 @@ public:
                     words_copy = words;
                     break;
                 }
+                
                 if (words_copy.empty())
                 {
                     indices.push_back(i);
