@@ -13,9 +13,12 @@ public:
         size_t size = statements[0].size();
         int max_good_people_1;
         int max_good_people_2;
-        vector<int> all_scores;
+        int total_good_people;
 
-        for (int i = 0; i < size; i ++)
+        int max_good_people;
+        // vector<int> all_scores;
+
+        for (int i = 0; i < size; i++)
         {
             // Person `i` is a good person and tells the truth
             max_good_people_1 = size;
@@ -24,6 +27,15 @@ public:
                 if (statements[i][j] == 0)
                 {
                     max_good_people_1--;
+                    int k = 0;
+                    while (k < size)
+                    {
+                        if (statements[j][k] == 1)
+                        {
+                            max_good_people_1--;
+                        }
+                        k++;
+                    }
                 }
                 else if (statements[i][j] == 2)
                 {
@@ -35,15 +47,7 @@ public:
                             max_good_people_1--;
                             break;
                         }
-                        else if (statements[k][i] == 0 && statements[k][j] == 1)
-                        {
-                            max_good_people_1--;
-                            break;
-                        }
-                        else
-                        {
-                            k++;
-                        }
+                        k++;
                     }
                 }
             }
@@ -58,10 +62,12 @@ public:
                 }
             }
 
-            all_scores.push_back((max_good_people_1 > max_good_people_2) ? max_good_people_1 : max_good_people_2);
+            total_good_people = (max_good_people_1 > max_good_people_2) ? max_good_people_1 : max_good_people_2;
+            if (total_good_people < max_good_people)
+                max_good_people = total_good_people;
         }
 
-        return *(std::max_element(all_scores.begin(), all_scores.end()));
+        return max_good_people;
     }
 };
 
