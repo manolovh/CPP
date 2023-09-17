@@ -30,7 +30,7 @@ public:
 
         int max_positions = 0;
 
-        IdxData *data = find_max(prizePositions);
+        IdxData *data = find_max(prizePositions, 1);
         max_positions += data->length;
 
         if (data->first_idx == 1)
@@ -43,12 +43,12 @@ public:
         }
         else
         {
-            prizePositions.erase(prizePositions.begin() + data->first_idx, prizePositions.begin() + data->last_idx);
+            prizePositions.erase(prizePositions.begin() + data->first_idx, prizePositions.begin() + data->last_idx + 1);
         }
 
         delete data;
 
-        data = find_max(prizePositions);
+        data = find_max(prizePositions, 2);
         max_positions += data->length;
 
         delete data;
@@ -56,7 +56,7 @@ public:
         return max_positions;
     }
 
-    IdxData* find_max(vector<int>& prizePositions)
+    IdxData* find_max(vector<int>& prizePositions, int iter)
     {
         IdxData *data = new IdxData();
 
@@ -69,15 +69,19 @@ public:
                 int idx = std::distance(prizePositions.begin(), it);
                 if ((idx + 1 - i) > data->length)
                 {
-                    std::cout << "\nEntered it != end in loop " << i << std::endl;
-                    std::cout << "it = " << *it << std::endl;
-                    std::cout << "data->length before = " << data->length << std::endl;
-
                     data->first_idx = i;
                     data->last_idx = idx;
                     data->length = (data->last_idx + 1) - data->first_idx;
-                    std::cout << "data->length after = " << data->length << std::endl;
+
+                    if (data->length == prizePositions.size())
+                        break;
                 }
+            }
+            else if (it == prizePositions.end() && iter == 2)
+            {
+                data->first_idx = i;
+                data->last_idx = data->first_idx;
+                data->length = 1;
             }
         }
         return data;
