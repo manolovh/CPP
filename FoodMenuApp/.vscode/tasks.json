@@ -7,11 +7,11 @@
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
-                "-o",
-                "${fileDirname}/${fileBasenameNoExtension}",
                 "${file}",
                 "/home/hmanolov/CPP/FoodMenuApp/lib/CalorieCalculator.cpp",
-                "/home/hmanolov/CPP/FoodMenuApp/lib/MacrosCalculator.cpp"
+                "/home/hmanolov/CPP/FoodMenuApp/lib/CaloriePrinter.cpp",
+                "-o",
+                "${fileDirname}/${fileBasenameNoExtension}"
             ],
             "options": {
                 "cwd": "${fileDirname}"

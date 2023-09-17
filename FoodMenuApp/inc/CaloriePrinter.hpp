@@ -1,6 +1,7 @@
 #ifndef _CALORIE_PRINTER_HPP
 #define _CALORIE_PRINTER_HPP
 
+#include <vector>
 #include "CalorieCalculator.hpp"
 
 class CalorieCalculator;
@@ -72,23 +73,54 @@ struct FatSource
 
 struct Fruit
 {
-    std::string fifty_kcal   = "Pineapple, Apple,\nOrange, Nectarine\n or Pear";
-    std::string thirthy_kcal = "Strawberries, Blueberries\nWatermelon, Cantaloupe\n or Peach";
+    std::string descr_fruit_20_kcal = "[Fruits (20kcal/100g)]";
+    std::vector<std::string> fruits_20_kcal = {
+        "Strawberries",
+        "Blueberries",
+        "Watermelon",
+        "Cantaloupe",
+        "Peach"
+    };
+
+    std::string descr_fruit_50_kcal = "[Fruits (50kcal/100g)]";
+    std::vector<std::string> fruits_50_kcal = {
+        "Pineapple",
+        "Apple",
+        "Orange",
+        "Nectarine",
+        "Pear"
+    };
 };
 
 struct Vegetable
 {
-    std::string twenty_kcal = "Tomato\nCucumber,\nAsparagus\nGreen Pepper,\nLettuce or Zucchini";
-    std::string fifty_kcal  = "Beetroot, Carrot,\nKale, Onion or\nGreen Beans";
+    std::string descr_veg_20_kcal = "[Vegetables (20kcal/100g)]";
+    std::vector<std::string> vegetables_20_kcal = {
+        "Tomato",
+        "Cucumber",
+        "Asparagus",
+        "Green Pepper",
+        "Lettuce",
+        "Zucchini"
+    };
+
+    std::string descr_veg_50_kcal = "[Vegetables (50kcal/100g)]";
+    std::vector<std::string> vegetables_50_kcal = {
+        "Beetroot",
+        "Carrot",
+        "Kale",
+        "Onion",
+        "Green Beans"
+    };
 };
 
 struct MealPlan
 {
-    Meal breakfast = {};
-    Meal lunch = {};
+    Meal breakfast           = {};
+    Meal lunch               = {};
     Meal afternoon_breakfast = {};
-    Meal dinner = {};
-    int calories_from_fiber = 0;
+    Meal dinner              = {};
+    int calories_from_fiber  = 0;
 };
 
 class CaloriePrinter
@@ -103,15 +135,12 @@ public:
     void print_meal_plan(CalorieCalculator& calc);
 
     void display_info(CalorieCalculator& calc);
-
-    // Getters
-    MacrosData get_macros_data();
-    PersonData get_person_data();
-    MealPlan get_meal_plan();
 };
 
 void round_quantity(int& quantity, int selection);
 
 void print_separator();
+
+void print_fiber_source(std::vector<std::string>& sources, std::string description);
 
 #endif //  _MACROS_CALCULATOR_HPP

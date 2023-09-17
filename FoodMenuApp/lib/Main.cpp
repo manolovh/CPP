@@ -14,8 +14,7 @@ int main()
 
     printer.display_info(calculator);
 
-    if (calculator.m_person_data->wants_macros)
-    {
+    if (calculator.m_person_data->wants_macros) {
         printer.print_macros(calculator);
     }
 
@@ -23,8 +22,7 @@ int main()
     std::cout << "Want an example meal plan, based on your goal? (Y/N): ";
     std::cin >> choice;
 
-    if (toupper(choice) == 'Y')
-    {
+    if (toupper(choice) == 'Y') {
         printer.print_meal_plan(calculator);
     }
 
