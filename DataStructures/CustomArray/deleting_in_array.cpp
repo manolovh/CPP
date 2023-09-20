@@ -1,7 +1,7 @@
 #include <iostream>
 #include "custom_array.hpp"
 
-void delete_elem(Array& arr, int idx)
+void delete_elem(ArrayStruct& arr, int idx)
 {
     for (int i = idx; i < arr.length; i++)
     {
@@ -12,7 +12,7 @@ void delete_elem(Array& arr, int idx)
 
 int main()
 {
-    Array arr = {{1, 2, 3, 4, 5}, 50, 5};
+    ArrayStruct arr = {{1, 2, 3, 4, 5}, 50, 5};
 
     delete_elem(arr, 3);
 

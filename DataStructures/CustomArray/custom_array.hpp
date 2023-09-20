@@ -1,20 +1,44 @@
 #ifndef CUSTOM_ARRAY_HPP
 #define CUSTOM_ARRAY_HPP
 
-typedef struct 
+typedef struct
 {
     int array[50];
     size_t size;
     size_t length;
-} Array;
+} ArrayStruct;
 
+class Array
+{
+private:
+    int *array;
+    size_t size;
+    size_t length;
 
-int get(Array *arr, int idx);
+public:
+    Array(int array[50], size_t size, size_t length);
 
-void set(Array *arr, int idx, int value);
+    int get(int idx);
 
-double avg(Array *arr);
+    void set(int idx, int value);
 
-int max(Array *arr);
+    double avg();
+
+    int sum();
+
+    int max();
+
+    int min();
+
+    void reverse();
+
+    void display();
+
+    void insert(int x);
+
+    bool is_sorted();
+
+    void rearrange();
+};
 
 #endif

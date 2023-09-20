@@ -1,7 +1,7 @@
 #include <iostream>
 #include "custom_array.hpp"
 
-int binary_search(Array *arr, int num)
+int binary_search(ArrayStruct *arr, int num)
 {
     int begin = 0;
     int end = arr->length;
@@ -30,7 +30,7 @@ int binary_search(Array *arr, int num)
 
 int main()
 {
-    Array arr = {{1, 2, 5, 7, 9, 10, 12, 15, 20, 21, 22, 23}, 50, 11};
+    ArrayStruct arr = {{1, 2, 5, 7, 9, 10, 12, 15, 20, 21, 22, 23}, 50, 11};
 
     std::cout << binary_search(&arr, 25) << std::endl;
 }

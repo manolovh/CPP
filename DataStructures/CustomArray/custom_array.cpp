@@ -1,47 +1,149 @@
 #include <iostream>
 #include "custom_array.hpp"
 
-int get(Array *arr, int idx)
+Array::Array(int array[50], size_t size, size_t length)
+    : array{array}, size{size}, length{length} { }
+
+int Array::get(int idx)
 {
-    return arr->array[idx];
+    if (idx >= 0 && idx < length) {
+        return array[idx];
+    }
+    return -1;
 }
 
-void set(Array *arr, int idx, int value)
+void Array::set(int idx, int value)
 {
-    arr->array[idx] = value;
+    if (idx >= 0 && idx < length) {
+        array[idx] = value;
+    }
 }
 
-double avg(Array *arr)
+double Array::avg()
 {
     double total = 0;
 
-    for (int i = 0; i < arr->length; i++)
+    for (int i = 0; i < length; i++)
     {
-        total += arr->array[i];
+        total += array[i];
     }
-    return total / arr->length;
+    return total / length;
 }
 
-int max(Array *arr)
+int Array::sum()
+{
+    double total = 0;
+
+    for (int i = 0; i < length; i++)
+    {
+        total += array[i];
+    }
+    return total;
+}
+
+int Array::max()
 {
     int max = 0;
 
-    for (int i = 0; i < arr->length; i++)
+    for (int i = 0; i < length; i++)
     {
-        if (arr->array[i] > max) {
-            max = arr->array[i];
+        if (array[i] > max) {
+            max = array[i];
         }
     }
     return max;
 }
 
+int Array::min()
+{
+    int min = array[0];
+
+    for (int i = 0; i < length; i++)
+    {
+        if (array[i] < min) {
+            min = array[i];
+        }
+    }
+    return min;
+}
+
+void Array::reverse()
+{
+    int tmp;
+    for (int i = 0, j = length - 1; i < j; i++, j--)
+    {
+        tmp = array[i];
+        array[i] = array[j];
+        array[j] = tmp;
+    }
+}
+
+void Array::display()
+{
+    for (int i = 0; i < length; i++)
+    {
+        std::cout << array[i] << " ";
+    }
+    std::cout << std::endl;
+}
+
+void Array::insert(int x)
+{
+    if (size > length)
+    {
+        int i = length - 1;
+        while (array[i] > x)
+        {
+            array[i + 1] = array[i];
+            i--;
+        }
+        array[i + 1] = x;
+        length++;
+    }
+}
+
+bool Array::is_sorted()
+{
+    for (int i = 1; i < length; i++)
+    {
+        if (array[i] < array[i - 1]) {
+            return false;
+        }
+    }
+    return true;
+}
+
+/* Make sure all negative elements are placed before the positive ones.*/
+void Array::rearrange()
+{
+    int i = 0;
+    int j = length - 1;
+    int tmp;
+
+    while (i < j)
+    {
+        while (array[i] < 0) {
+            i++;
+        }
+        while (array[j] >= 0) {
+            j--;
+        }
+        if (i < j)
+        {
+            tmp = array[i];
+            array[i] = array[j];
+            array[j] = tmp;
+        }
+    }
+}
+
 int main()
 {
-    Array arr = {{1, 2, 3, 4, 5}, 50, 5};
+    int init_arr[50] = {2, 4, 6, -2, 8, -10, 10};
 
-    std::cout << get(&arr, 2) << std::endl;
-    set(&arr, 2, 2);
-    std::cout << get(&arr, 2) << std::endl;
-    std::cout << avg(&arr) << std::endl;
-    std::cout << max(&arr) << std::endl;
+    Array arr (init_arr, 50, 7);
+
+    arr.rearrange();
+
+    arr.display();
 }
