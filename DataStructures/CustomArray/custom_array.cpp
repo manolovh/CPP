@@ -2,12 +2,12 @@
 #include "CustomArray.hpp"
 
 Array::Array(int array[50], size_t size, size_t length)
-    : array{array}, size{size}, length{length} { }
+    : m_array{array}, size{size}, length{length} { }
 
 int Array::get(int idx)
 {
     if (idx >= 0 && idx < length) {
-        return array[idx];
+        return m_array[idx];
     }
     return -1;
 }
@@ -15,7 +15,7 @@ int Array::get(int idx)
 void Array::set(int idx, int value)
 {
     if (idx >= 0 && idx < length) {
-        array[idx] = value;
+        m_array[idx] = value;
     }
 }
 
@@ -25,7 +25,7 @@ double Array::avg()
 
     for (int i = 0; i < length; i++)
     {
-        total += array[i];
+        total += m_array[i];
     }
     return total / length;
 }
@@ -36,7 +36,7 @@ int Array::sum()
 
     for (int i = 0; i < length; i++)
     {
-        total += array[i];
+        total += m_array[i];
     }
     return total;
 }
@@ -47,8 +47,8 @@ int Array::max()
 
     for (int i = 0; i < length; i++)
     {
-        if (array[i] > max) {
-            max = array[i];
+        if (m_array[i] > max) {
+            max = m_array[i];
         }
     }
     return max;
@@ -56,12 +56,12 @@ int Array::max()
 
 int Array::min()
 {
-    int min = array[0];
+    int min = m_array[0];
 
     for (int i = 0; i < length; i++)
     {
-        if (array[i] < min) {
-            min = array[i];
+        if (m_array[i] < min) {
+            min = m_array[i];
         }
     }
     return min;
@@ -72,9 +72,9 @@ void Array::reverse()
     int tmp;
     for (int i = 0, j = length - 1; i < j; i++, j--)
     {
-        tmp = array[i];
-        array[i] = array[j];
-        array[j] = tmp;
+        tmp = m_array[i];
+        m_array[i] = m_array[j];
+        m_array[j] = tmp;
     }
 }
 
@@ -82,23 +82,35 @@ void Array::display()
 {
     for (int i = 0; i < length; i++)
     {
-        std::cout << array[i] << " ";
+        std::cout << m_array[i] << " ";
     }
     std::cout << std::endl;
 }
 
-void Array::insert(int x)
+void Array::insert(int idx)
 {
-    if (size > length)
+    if (idx > -1 && idx < length)
     {
         int i = length - 1;
-        while (array[i] > x)
+        while (m_array[i] > m_array[idx])
         {
-            array[i + 1] = array[i];
+            m_array[i + 1] = m_array[i];
             i--;
         }
-        array[i + 1] = x;
+        m_array[i + 1] = idx;
         length++;
+    }
+}
+
+void Array::remove(int idx)
+{
+    if (idx > -1 && idx < length)
+    {
+        for (int i = idx; i < length; i++)
+        {
+            m_array[i] = m_array[i + 1];
+        }
+        length--;
     }
 }
 
@@ -106,7 +118,7 @@ bool Array::is_sorted()
 {
     for (int i = 1; i < length; i++)
     {
-        if (array[i] < array[i - 1]) {
+        if (m_array[i] < m_array[i - 1]) {
             return false;
         }
     }
@@ -122,17 +134,27 @@ void Array::rearrange()
 
     while (i < j)
     {
-        while (array[i] < 0) {
+        while (m_array[i] < 0) {
             i++;
         }
-        while (array[j] >= 0) {
+        while (m_array[j] >= 0) {
             j--;
         }
         if (i < j)
         {
-            tmp = array[i];
-            array[i] = array[j];
-            array[j] = tmp;
+            tmp = m_array[i];
+            m_array[i] = m_array[j];
+            m_array[j] = tmp;
         }
     }
+}
+
+int& Array::operator[](int idx)
+{
+    return m_array[idx];
+}
+
+int Array::get_length()
+{
+    return length;
 }

@@ -1,21 +1,21 @@
 #include <iostream>
 #include "CustomArray.hpp"
 
-int binary_search(ArrayStruct *arr, int num)
+int Array::binary_search(int num)
 {
     int begin = 0;
-    int end = arr->length;
+    int end = length;
     int mid;
 
     while (begin <= end)
     {
         mid = (begin + end) / 2;
         
-        if (arr->array[mid] == num)
+        if (m_array[mid] == num)
         {
             return mid;
         }
-        else if (arr->array[mid] < num)
+        else if (m_array[mid] < num)
         {
             begin = mid + 1;
         }
@@ -24,6 +24,5 @@ int binary_search(ArrayStruct *arr, int num)
             end = mid - 1;
         }
     }
-    
     return -1;
 }
