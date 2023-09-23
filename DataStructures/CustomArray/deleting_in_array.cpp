@@ -1,5 +1,5 @@
 #include <iostream>
-#include "custom_array.hpp"
+#include "CustomArray.hpp"
 
 void delete_elem(ArrayStruct& arr, int idx)
 {
@@ -8,16 +8,4 @@ void delete_elem(ArrayStruct& arr, int idx)
         arr.array[i] = arr.array[i + 1];
     }
     arr.length--;
-}
-
-int main()
-{
-    ArrayStruct arr = {{1, 2, 3, 4, 5}, 50, 5};
-
-    delete_elem(arr, 3);
-
-    for (int i = 0; i < arr.length; i++)
-    {
-        std::cout << arr.array[i] << std::endl;
-    }
 }

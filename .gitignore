@@ -1,1 +1,4 @@
 .vscode/
+*.vcxproj*
+*.sln
+.vs

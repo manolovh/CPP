@@ -8,6 +8,11 @@ typedef struct
     size_t length;
 } ArrayStruct;
 
+int binary_search(ArrayStruct* arr, int num);
+int linear_search_1(ArrayStruct* arr, int num);
+int linear_search_2(ArrayStruct* arr, int num);
+void delete_elem(ArrayStruct& arr, int idx);
+
 class Array
 {
 private:
@@ -39,6 +44,8 @@ public:
     bool is_sorted();
 
     void rearrange();
+
+    Array* merge(Array* arr);
 };
 
 #endif

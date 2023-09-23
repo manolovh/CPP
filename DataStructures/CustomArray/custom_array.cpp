@@ -1,5 +1,5 @@
 #include <iostream>
-#include "custom_array.hpp"
+#include "CustomArray.hpp"
 
 Array::Array(int array[50], size_t size, size_t length)
     : array{array}, size{size}, length{length} { }
@@ -135,15 +135,4 @@ void Array::rearrange()
             array[j] = tmp;
         }
     }
-}
-
-int main()
-{
-    int init_arr[50] = {2, 4, 6, -2, 8, -10, 10};
-
-    Array arr (init_arr, 50, 7);
-
-    arr.rearrange();
-
-    arr.display();
 }

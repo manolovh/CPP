@@ -1,5 +1,5 @@
 #include <iostream>
-#include "custom_array.hpp"
+#include "CustomArray.hpp"
 
 int linear_search_1(ArrayStruct *arr, int num)
 {
@@ -49,13 +49,4 @@ int linear_search_2(ArrayStruct *arr, int num)
         }
     }
     return -1;
-}
-
-int main()
-{
-    ArrayStruct arr = {{1, 2, 3, 4, 5}, 50, 5};
-
-    std::cout << linear_search_1(&arr, 4) << std::endl;
-    std::cout << linear_search_2(&arr, 4) << std::endl;
-    std::cout << linear_search_1(&arr, 4) << std::endl;
 }
