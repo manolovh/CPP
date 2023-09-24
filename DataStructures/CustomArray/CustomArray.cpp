@@ -4,6 +4,17 @@
 Array::Array(int *arr, size_t size, size_t length)
     : m_array{ arr }, size{ size }, length{ length } { }
 
+Array::Array(size_t size, size_t length)
+    : size{ size }, length{ length }
+{
+    m_array = new int[size];
+}
+
+Array::~Array()
+{
+    delete m_array;
+}
+
 int Array::get(int idx)
 {
     if (idx >= 0 && idx < length) {
@@ -149,6 +160,29 @@ void Array::rearrange()
     }
 }
 
+/* Merge two arrays with equal size */
+Array* Array::merge(Array* arr)
+{
+	int i = 0;
+	int j = 0;
+	int k = 0;
+	int *new_arr = new int[length * 2];
+	Array *merged_arr = new Array{ new_arr, length * 2, length * 2};
+
+	while (k < length * 2)
+	{
+		if (i < length && m_array[i] < (*arr)[j]) {
+			(*merged_arr)[k++] = m_array[i++];
+		}
+		else {
+			if (j < arr->length) {
+				(*merged_arr)[k++] = (*arr)[j++];
+			}
+		}
+	}
+	return merged_arr;
+}
+
 int& Array::operator[](int idx)
 {
     return m_array[idx];
@@ -157,4 +191,31 @@ int& Array::operator[](int idx)
 int Array::get_length()
 {
     return length;
+}
+
+Array* Array::make_union(Array* arr)
+{
+    int k = 0;
+    Array* new_union = new Array{ length + arr->get_length(), length + arr->get_length() };
+
+    for (; k < length; k++)
+    {
+        (*new_union)[k] = m_array[k];
+    }
+
+    for (int i = 0; i < arr->get_length(); i++)
+    {
+        bool elem_in = false;
+        for (int j = 0; j < length; j++)
+        {
+            if ((*arr)[i] == m_array[j]) {
+                elem_in = true;
+                break;
+            }
+        }
+        if (!elem_in) {
+            (*new_union)[k++] = (*arr)[i];
+        }
+    }
+    return new_union;
 }

@@ -9,6 +9,7 @@ private:
     size_t length;
 
 public:
+    Array(size_t size, size_t length);
     Array(int *array, size_t size, size_t length);
 
     int get(int idx);
@@ -37,6 +38,10 @@ public:
 
     bool is_sorted();
     int get_length();
+
+    Array* make_union(Array* arr);
+
+    ~Array();
 };
 
 #endif

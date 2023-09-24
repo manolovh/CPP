@@ -8,9 +8,9 @@ int main()
     Array arr1 = { a1, 50, 5 };
     Array arr2 = { a2, 50, 5 };
 
-    Array* arr3 = arr1.merge(&arr2);
+    Array* arr3 = arr1.make_union(&arr2);
 
-    for (int i = 0; i < 10; i++)
+    for (int i = 0; i < arr3->get_length(); i++)
     {
         std::cout << (*arr3)[i] << " ";
     }
