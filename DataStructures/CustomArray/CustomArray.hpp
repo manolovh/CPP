@@ -1,18 +1,6 @@
 #ifndef CUSTOM_ARRAY_HPP
 #define CUSTOM_ARRAY_HPP
 
-typedef struct
-{
-    int array[50];
-    size_t size;
-    size_t length;
-
-    int& operator[](int idx)
-    {
-        return array[idx];
-    }
-} ArrayStruct;
-
 class Array
 {
 private:
@@ -21,7 +9,7 @@ private:
     size_t length;
 
 public:
-    Array(int array[50], size_t size, size_t length);
+    Array(int *array, size_t size, size_t length);
 
     int get(int idx);
     void set(int idx, int value);

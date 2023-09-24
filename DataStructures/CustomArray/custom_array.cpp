@@ -1,8 +1,8 @@
 #include <iostream>
 #include "CustomArray.hpp"
 
-Array::Array(int array[50], size_t size, size_t length)
-    : m_array{array}, size{size}, length{length} { }
+Array::Array(int *arr, size_t size, size_t length)
+    : m_array{ arr }, size{ size }, length{ length } { }
 
 int Array::get(int idx)
 {

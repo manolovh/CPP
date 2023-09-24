@@ -10,7 +10,7 @@ int main()
 
     Array* arr3 = arr1.merge(&arr2);
 
-    for (int i = 0; i < arr3->get_length(); i++)
+    for (int i = 0; i < 10; i++)
     {
         std::cout << (*arr3)[i] << " ";
     }
