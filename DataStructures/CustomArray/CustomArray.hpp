@@ -21,10 +21,11 @@ public:
     int min();
     int max();
 
-    void insert(int idx);
+    void append(int num);
+    void insert(int idx, int num);
     void remove(int idx);
 
-    Array* merge(Array* arr);
+    Array* merge(Array *arr);
     void display();
 
     void reverse();
@@ -39,7 +40,9 @@ public:
     bool is_sorted();
     int get_length();
 
-    Array* make_union(Array* arr);
+    Array* make_union(Array *arr);
+    Array* get_intersection(Array* arr);
+    Array* get_difference(Array* arr);
 
     ~Array();
 };

@@ -98,17 +98,24 @@ void Array::display()
     std::cout << std::endl;
 }
 
-void Array::insert(int idx)
+void Array::append(int num)
 {
-    if (idx > -1 && idx < length)
+    if (length < size)
     {
-        int i = length - 1;
-        while (m_array[i] > m_array[idx])
+        m_array[length] = num;
+        length++;
+    }
+}
+
+void Array::insert(int idx, int num)
+{
+    if (idx >= 0 && idx < length && length < size)
+    {
+        for (int i = length; i > idx; i--)
         {
-            m_array[i + 1] = m_array[i];
-            i--;
+            m_array[i] = m_array[i - 1];
         }
-        m_array[i + 1] = idx;
+        m_array[idx] = num;
         length++;
     }
 }
@@ -134,6 +141,11 @@ bool Array::is_sorted()
         }
     }
     return true;
+}
+
+void increase_length()
+{
+    length++;
 }
 
 /* Make sure all negative elements are placed before the positive ones.*/
@@ -218,4 +230,29 @@ Array* Array::make_union(Array* arr)
         }
     }
     return new_union;
+}
+
+Array* Array::get_intersection(Array* arr)
+{
+    Array* new_union = new Array{ length, 0 };
+
+    for (int i = 0; i < length; i++)
+    {
+        for (int j = 0; j < arr->get_length(); j++)
+        {
+            if ((m_array[i] == (*arr)[j]) && (new_union->linear_search_1(m_array[i]) == -1))
+            {
+                (*new_union)[i] = m_array[i];
+                new_union->increase_length();
+                // new_union->append(m_array[i]);
+                break;
+            }
+        }
+    }
+    return new_union;
+}
+
+Array* Array::get_difference(Array* arr)
+{
+
 }
