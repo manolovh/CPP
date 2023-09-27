@@ -30,6 +30,7 @@ public:
 
     void reverse();
     void rearrange();
+    void increase_length();
 
     int& operator[](int idx);
 

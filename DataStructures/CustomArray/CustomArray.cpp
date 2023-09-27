@@ -143,7 +143,7 @@ bool Array::is_sorted()
     return true;
 }
 
-void increase_length()
+void Array::increase_length()
 {
     length++;
 }
@@ -242,9 +242,8 @@ Array* Array::get_intersection(Array* arr)
         {
             if ((m_array[i] == (*arr)[j]) && (new_union->linear_search_1(m_array[i]) == -1))
             {
-                (*new_union)[i] = m_array[i];
-                new_union->increase_length();
-                // new_union->append(m_array[i]);
+                std::cout << "Entered if condition in loop..." << std::endl;
+                new_union->append(m_array[i]);
                 break;
             }
         }
@@ -254,5 +253,22 @@ Array* Array::get_intersection(Array* arr)
 
 Array* Array::get_difference(Array* arr)
 {
+    Array* new_union = new Array{ length, 0 };
 
+    for (int i = 0; i < length; i++)
+    {
+        bool elem_in = false;
+        for (int j = 0; j < arr->get_length(); j++)
+        {
+            if ((m_array[i] == (*arr)[j]) && (new_union->linear_search_1(m_array[i]) == -1))
+            {
+                elem_in = true;
+                break;
+            }
+        }
+        if (!elem_in) {
+            new_union->append(m_array[i]);
+        }
+    }
+    return new_union;
 }
