@@ -45,6 +45,10 @@ public:
     Array* get_intersection(Array* arr);
     Array* get_difference(Array* arr);
 
+    void find_missing();
+    void find_missing_unsorted();
+    void find_duplicates();
+
     ~Array();
 };
 
