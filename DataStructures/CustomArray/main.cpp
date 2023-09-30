@@ -1,5 +1,22 @@
 #include <iostream>
+#include <chrono>
+#include <ctime>
 #include "CustomArray.hpp"
+
+class Timer
+{
+public:
+    std::chrono::time_point<std::chrono::system_clock> StartTime;
+    Timer()
+    {
+        StartTime = std::chrono::system_clock::now();
+    }
+    ~Timer()
+    {
+        std::chrono::time_point<std::chrono::system_clock> endTime = std::chrono::system_clock::now();
+        std::cout << std::chrono::duration_cast<std::chrono::microseconds>(endTime - StartTime).count() << std::endl;
+    }
+};
 
 void f1()
 {
@@ -30,14 +47,38 @@ void f2()
     arr2.find_missing_unsorted();
 }
 
-int main()
+void f3()
 {
     int a1[50] = { 4, 2, 1, 7, 4, 6, 2, 8 };
     Array arr1 = { a1, 50, 8 };
 
-    int a2[50] = { 1, 3, 3, 6, 6, 6, 8, 8};
+    int a2[50] = { 1, 3, 3, 6, 6, 6, 8, 8 };
     Array arr2 = { a2, 50, 8 };
 
     arr1.find_duplicates();
     arr2.find_duplicates();
+}
+
+void f4()
+{
+    int a1[50] = { 5, 9, 4, 3, 1, 7, 6, 2, 10, 8, 0 };
+    Array arr1 = { a1, 50, 11 };
+
+    arr1.find_pair(8);
+
+    std::cout << "==================" << std::endl;
+
+    int a2[50] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+    Array arr2 = { a2, 50, 11 };
+
+    arr2.sorted_find_pair(8);
+}
+
+int main()
+{
+    Timer t;
+    int a1[50] = { -5, 7, 2, 8, 0, 5, 10, 16, -9, 7, 4 };
+    Array arr1 = { a1, 50, 11 };
+
+    arr1.find_min_max();
 }

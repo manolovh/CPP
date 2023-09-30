@@ -48,6 +48,9 @@ public:
     void find_missing();
     void find_missing_unsorted();
     void find_duplicates();
+    void find_pair(int num);
+    void sorted_find_pair(int num);
+    void find_min_max();
 
     ~Array();
 };

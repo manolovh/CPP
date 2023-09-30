@@ -272,3 +272,56 @@ Array* Array::get_difference(Array* arr)
     }
     return new_union;
 }
+
+void Array::find_pair(int num)
+{
+    for (int i = 0; i < length - 1; i++)
+    {
+        for (int j = i + 1; j < length; j++)
+        {
+            if ((m_array[i] + m_array[j]) == num)
+            {
+                std::cout << m_array[i] << " + " << m_array[j] << " = " << num << std::endl;
+            }
+        }
+    }
+}
+
+void Array::sorted_find_pair(int num)
+{
+    int i = 0, j = length - 1;
+
+    while (i < j)
+    {
+        if (m_array[i] + m_array[j] == num) {
+            std::cout << m_array[i] << " + " << m_array[j] << " = " << num << std::endl;
+            i++;
+            j--;
+        }
+        else if (m_array[i] + m_array[j] < num) {
+            i++;
+        }
+        else {
+            j--;
+        }
+    }
+}
+
+void Array::find_min_max()
+{
+    int max = m_array[0];
+    int min = m_array[0];
+
+    for (int i = 1; i < length; i++)
+    {
+        if (m_array[i] < min) {
+            min = m_array[i];
+        }
+        else if (m_array[i] > max) {
+            max = m_array[i];
+        }
+    }
+
+    std::cout << "Min: " << min << std::endl;
+    std::cout << "Max: " << max << std::endl;
+}
