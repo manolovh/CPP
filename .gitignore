@@ -2,4 +2,4 @@
 *.vcxproj*
 *.sln
 .vs
-.exe
+*.exe
