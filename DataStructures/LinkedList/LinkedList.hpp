@@ -17,6 +17,17 @@ struct Node
 class LinkedList
 {
 public:
-	void display(Node* node);
+	Node* main_node;
+	void display();
 	void display_backwards(Node* node);
+
+	int get_node_count();
+	int get_sum();
+
+	int get_max();
+	
+	Node* search(int x);
+	Node* search2(int x);
+
+	void insert(int idx, int x);
 };
