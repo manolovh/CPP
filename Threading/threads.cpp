@@ -31,6 +31,4 @@ int main()
 
     worker.join();
     worker2.join();
-
-    std::cin.get();
 }
