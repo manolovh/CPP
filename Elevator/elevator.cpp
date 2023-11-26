@@ -1,4 +1,4 @@
-/* The program simuates an elevator. It runs infinetely, just like a real elevator.
+/* The program simuates an elevator. It runs infinitely, just like a real elevator.
    Only one agent is allowed at a time is allowed in the elevator. Different security level agents can
    visit different levels of the building. If an agent doesn't hold the required security level, the
    elevator doors will not open.
