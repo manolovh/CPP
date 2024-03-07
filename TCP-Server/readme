@@ -1,7 +1,6 @@
-Compile each file using `g++ std-=c++17 <file_name> -o <executable_name>`
-
-1. Run the `tcp_server` executable: `server_executable <chosen_port>`. The connection must be successful.
-2. In another tab, run the `tcp_client` executable: `client_executable <chosen_port>. After successfully connecting to the server,
+1. Compile each file using `g++ std-=c++17 <file_name> -o <executable_name>`
+2. Run the `tcp_server` executable: `server_executable <chosen_port>`. The connection must be successful.
+3. In another tab, run the `tcp_client` executable: `client_executable <chosen_port>. After successfully connecting to the server,
 send your desired message to it, or enter `stats` to get the total connections to the server and total messages sent for each client.
 
 Note: this app was tested only on localhost
